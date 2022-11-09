@@ -32,8 +32,21 @@ exports.aeroplane_detail = function(req, res) {
 }; 
  
 // Handle Aeroplane create on POST. 
-exports.aeroplane_create_post = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Aeroplane create POST'); 
+exports.aeroplane_create_post = async function(req, res) { 
+    console.log(req.body) 
+    let document = new Aeroplane(); 
+    document.flight_capacity = req.body.flight_capacity; 
+    document.flight_number = req.body.flight_number; 
+    document.flight_captain = req.body.flight_captain; 
+    document.is_operational = req.body.is_operational; 
+    try{ 
+        let result = await document.save(); 
+        res.send(result); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 }; 
  
 // Handle Aeroplane delete form on DELETE. 
