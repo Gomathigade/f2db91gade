@@ -3,15 +3,16 @@ extends layout
 block content
   h1= title
   
-  - var results = [{Flight_Capacity:40, Flight_Number:1234, Flight_captain:"Gowtham", isOperational:true}, {Flight_Capacity:50, Flight_Number:1254, Flight_captain:"Ranbir", isOperational:true}, {Flight_Capacity:20, Flight_Number:1567, Flight_captain:"Ram", isOperational:true}]
+  //- - var results = [{Flight_Capacity:40, Flight_Number:1234, Flight_captain:"Gowtham", isOperational:true}, {Flight_Capacity:50, Flight_Number:1254, Flight_captain:"Ranbir", isOperational:true}, {Flight_Capacity:20, Flight_Number:1567, Flight_captain:"Ram", isOperational:true}]
+  - var results = resultList
 
   mixin list_div
     each item,i in results
       div(class="row")
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.Flight_Capacity
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.Flight_Number
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.Flight_captain
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.isOperational
+        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_capacity
+        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_number
+        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_captain
+        div(class="col-sm-2" onClick=`buy(${i})`)=item.is_operational
   
   div(class="container-fluid")
     +list_div

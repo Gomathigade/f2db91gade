@@ -13,6 +13,19 @@ exports.aeroplane_list = async function(req, res) {
     
 }; 
 
+// VIEWS 
+// Handle a show all view 
+exports.aeroplane_view_all_Page = async function(req, res) { 
+    try{ 
+        theAeroplanes = await Aeroplane.find(); 
+        res.render('Aeroplane', { title: 'Aeroplane Search Results', resultList: theAeroplanes }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+}; 
+
 // for a specific Aeroplane. 
 exports.aeroplane_detail = function(req, res) { 
     res.send('NOT IMPLEMENTED: Aeroplane detail: ' + req.params.id); 
