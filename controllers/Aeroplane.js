@@ -1,10 +1,18 @@
 var Aeroplane = require('../models/Aeroplane'); 
  
 // List of all Aeroplane
-exports.aeroplane_list = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Aeroplane list'); 
+exports.aeroplane_list = async function(req, res) { 
+    try{ 
+        theAeroplane = await Aeroplane.find(); 
+        res.send(theAeroplane); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
+    
 }; 
- 
+
 // for a specific Aeroplane. 
 exports.aeroplane_detail = function(req, res) { 
     res.send('NOT IMPLEMENTED: Aeroplane detail: ' + req.params.id); 
