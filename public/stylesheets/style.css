@@ -7,6 +7,25 @@ a {
   color: #00B7FF;
 }
 
+.rs {
+  background-color: #ffe6ff;
+  text-align:left;
+  padding: 5px;
+  margin: 3px;
+}
+
+h1 {
+  text-align: center;
+  background-color: #b3ffcc;
+  font-family: monospace;
+  padding: 5px;
+  border: 2px solid black;
+}
+
+.col-style {
+  margin: 1px;
+}
+
 .aeroplaneAttr { 
   background-color: aquamarine; 
   width: 200px; 

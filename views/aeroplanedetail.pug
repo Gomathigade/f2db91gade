@@ -2,26 +2,28 @@ extends layout
  
 block content 
   h1= title 
- 
-  - let flightid = toShow._id 
-  - let flightCapacity = toShow.flight_capacity 
-  - let flightNumber = toShow.flight_number 
-  - let flightCaptain = toShow.flight_captain
-  - let isOperational = toShow.is_operational
 
-  div 
-    div.row 
-      div(class='costumeAttr mr-3') Flight ID is: 
-      div #{flightid} 
-    div.row 
-      div(class='costumeAttr mr-3') Flight Capacity is: 
-      div #{flightCapacity} 
-    div.row 
-      div(class='costumeAttr mr-3') Flight Number is: 
-      div #{flightNumber} 
-    div.row 
-      div(class='costumeAttr mr-3') Flight Captain is: 
-      div #{flightCaptain} 
-    div.row 
-      div(class='costumeAttr mr-3') Flight Operational status is: 
-      div #{isOperational} 
+  if (toShow == null) 
+    h2 No instance to Display 
+  else  
+    - let flightid = toShow._id 
+    - let flightCapacity = toShow.flight_capacity 
+    - let flightNumber = toShow.flight_number 
+    - let flightCaptain = toShow.flight_captain
+    - let isOperational = toShow.is_operational
+    div 
+      div.row 
+        div(class='costumeAttr mr-3') Flight ID is: 
+        div #{flightid} 
+      div.row 
+        div(class='costumeAttr mr-3') Flight Capacity is: 
+        div #{flightCapacity} 
+      div.row 
+        div(class='costumeAttr mr-3') Flight Number is: 
+        div #{flightNumber} 
+      div.row 
+        div(class='costumeAttr mr-3') Flight Captain is: 
+        div #{flightCaptain} 
+      div.row 
+        div(class='costumeAttr mr-3') Flight Operational status is: 
+        div #{isOperational} 

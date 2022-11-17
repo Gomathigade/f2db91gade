@@ -8,7 +8,7 @@ block content
 
   mixin list_div
     each item,i in results
-      div(class="row")
+      div(class="row rs")
         div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_capacity
         div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_number
         div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_captain
