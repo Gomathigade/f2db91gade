@@ -1,0 +1,58 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to Update 
+  else 
+    - let aeroplaneid = toShow._id 
+    - let flightCapacity = toShow.flight_capacity 
+    - let flightNumber = toShow.flight_number 
+    - let flightCaptain = toShow.flight_captain 
+    - let isOperational = toShow.is_operational 
+    div.row(class='mb-2') 
+      div.mr-1 ID is 
+      div #{aeroplaneid} 
+    - let actionid = "/resource/Aeroplane/" + aeroplaneid 
+    form(id='aeroplaneForm', action= actionid, method="PUT") 
+      div.form-group 
+          label.aeroplaneAttr(for='flight_capacity') Flight Capacity : 
+          input#flight_capacity(type='number', name='flight_capacity', value= flightCapacity ) 
+      div.form-group 
+          label.aeroplaneAttr(for='flight_number') Flight Number :
+          input#flight_number(type='number', name='flight_number', value= flightNumber ) 
+      div.form-group 
+          label.aeroplaneAttr(for='flight_captain') Flight Captain :
+          input#flight_captain(type='text', name='flight_captain', value= flightCaptain ) 
+      div.form-group 
+          label.aeroplaneAttr(for='is_operational') Flight is operational :
+          if  isOperational
+              input#is_operational_true(type='checkbox', name='is_operational' value="true" checked)   
+              label.aeroplaneAttr(for='is_operational') True
+              input#is_operational_false(type='checkbox', name='is_operational' value="false") 
+              label.aeroplaneAttr(for='is_operational') False
+          else
+              input#is_operational_true(type='checkbox', name='is_operational' value="true")   
+              label.aeroplaneAttr(for='is_operational') True
+              input#is_operational_false(type='checkbox', name='is_operational' value="false" checked) 
+              label.aeroplaneAttr(for='is_operational') False
+      input(type="submit") 
+ 
+  script. 
+    document.forms['aeroplaneForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    });

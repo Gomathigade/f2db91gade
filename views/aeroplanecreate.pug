@@ -1,0 +1,47 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='AeroplaneForm', action="/resource/Aeroplane", method="POST") 
+    div.form-group 
+        label.aeroplaneAttr(for='flight_capacity') Aeroplane Capacity : 
+        input#flight_capacity(type='number', name='flight_capacity') 
+    div.form-group 
+        label.aeroplaneAttr(for='flight_number') Aeroplane flight number : 
+        input#flight_number(type='number', name='flight_number') 
+    div.form-group 
+        label.aeroplaneAttr(for='flight_captain') Aeroplane captain : 
+        input#flight_captain(type='text', name='flight_captain') 
+    div.form-group 
+        label.aeroplaneAttr(for='is_operational') Aeroplane is operational : 
+        input#is_operational_true(type='checkbox', name='is_operational' value="true")   
+        label.aeroplaneAttr(for='is_operational') True
+        input#is_operational_false(type='checkbox', name='is_operational' value="false") 
+        label.aeroplaneAttr(for='is_operational') False
+    input(type="submit") 
+ 
+  script. 
+    //-   console.log(new Aeroplane(event.target))
+    document.forms['AeroplaneForm'].addEventListener('submit', (event) => { 
+      aeroplaneObj = new Aeroplane()
+      aeroplaneObj.flight_capacity = event.target.flight_capacity
+      aeroplaneObj.flight_number = event.target.flight_number
+      aeroplaneObj.flight_captain = event.target.flight_captain
+      aeroplaneObj.is_operational = #(event.target.is_operational == undefined) ? false : true
+      console.log(aeroplaneObj)
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(aeroplaneObj) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 

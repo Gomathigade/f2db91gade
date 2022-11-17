@@ -1,0 +1,58 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let aeroplaneid = toShow._id 
+    - let flightCapacity = toShow.flight_capacity 
+    - let flightNumber = toShow.flight_number 
+    - let flightCaptain = toShow.flight_captain 
+    - let isOperational = toShow.is_operational
+    - let actionid = "/resource/Aeroplane/" + aeroplaneid 
+
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='aeroplaneAttr') Aeroplane ID is: 
+        div #{aeroplaneid} 
+      div.row 
+        div(class='aeroplaneAttr') Flight Capacity : 
+        div #{flightCapacity} 
+      div.row 
+        div(class='aeroplaneAttr') Flight Number : 
+        div #{flightNumber} 
+      div.row 
+        div(class='aeroplaneAttr') Flight Captain : 
+        div #{flightCaptain}
+      div.row 
+        div(class='aeroplaneAttr') Flight Operational Status is: 
+        div #{isOperational}
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+ 
+  script. 
+    function cancel() { 
+      // Go back to the home page for the costume collection 
+      window.location.href='/Aeroplane' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first 
+      fetch(actionid, { 
+        method: 'DELETE' 
+      }).then((resp) => { 
+        return resp.json(); //or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/Aeroplane' 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    }

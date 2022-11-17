@@ -58,8 +58,16 @@ exports.aeroplane_create_post = async function(req, res) {
 }; 
  
 // Handle Aeroplane delete form on DELETE. 
-exports.aeroplane_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Aeroplane delete DELETE ' + req.params.id); 
+exports.aeroplane_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Aeroplane.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    }
 }; 
  
 // Handle Aeroplane update form on PUT. 
@@ -86,3 +94,58 @@ exports.aeroplane_update_put = async function(req, res) {
         res.send(`{"error": ${err}: Update for id ${req.params.id} failed`); 
     } 
 }; 
+
+// Handle a show one view with id specified by query 
+exports.aeroplane_view_one_Page = async function(req, res) {
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Aeroplane.findById(req.query.id) 
+        console.log(result)
+        res.render('aeroplanedetail',  { title: 'Aeroplane Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
+
+// Handle building the view for creating a aeroplane. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.aeroplane_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('aeroplanecreate', { title: 'Aeroplane Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle building the view for updating a aeroplane. 
+// query provides the id 
+exports.aeroplane_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await Aeroplane.findById(req.query.id)
+        res.render('aeroplaneupdate', { title: 'Aeroplane Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+// Handle a delete one view with id from query 
+exports.aeroplane_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Aeroplane.findById(req.query.id) 
+        res.render('aeroplanedelete', { title: 'Aeroplane Delete', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+};
