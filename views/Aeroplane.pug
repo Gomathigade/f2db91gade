@@ -6,13 +6,16 @@ block content
   //- - var results = [{Flight_Capacity:40, Flight_Number:1234, Flight_captain:"Gowtham", isOperational:true}, {Flight_Capacity:50, Flight_Number:1254, Flight_captain:"Ranbir", isOperational:true}, {Flight_Capacity:20, Flight_Number:1567, Flight_captain:"Ram", isOperational:true}]
   - var results = resultList
 
-  mixin list_div
-    each item,i in results
-      div(class="row rs")
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_capacity
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_number
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_captain
-        div(class="col-sm-2" onClick=`buy(${i})`)=item.is_operational
+  div(class="row row-style-head")
+    mixin list_div
+      each item,i in results
+        - let destination = `dispatch(\"/aeroplane/update?id=${item._id}\")`
+        div(class="row rs")
+          div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_capacity
+          div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_number
+          div(class="col-sm-2" onClick=`buy(${i})`)=item.flight_captain
+          div(class="col-sm-2" onClick=`buy(${i})`)=item.is_operational
+          button.btn(class="btn-primary col-sm-2", onclick= destination) Update
   
   div(class="container-fluid")
     +list_div
@@ -21,3 +24,8 @@ block content
     function buy(i) {
       alert(`You purchased item ${i}`)
     }  
+
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
