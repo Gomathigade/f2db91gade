@@ -1,26 +1,12 @@
-extends layout
+extends layout 
 
-block content
-  h1= title
-  p Welcome to #{title}, northwest missouri university
-
-  button(type="button" class="btn btn-info" onclick='doBump()') Press Me
-
-  br
-  br
-  div#bump(class="p-3 mb-2 bg-success text-dark border border-dark d-inline-flex") Bump the count.
-
-  script. 
-    var count = 0
-    var bump = 1
-
-    function doBump() {
-      count += bump
-      bump++
-      document.getElementById('bump').innerText = `Count ${count} with bump ${bump}`
-    }
-
-
-  br
-  br
-  a(href="/Aeroplane") click here to land on Aeroplane page
+block content 
+  if (!user) 
+    a(href="/login") Login 
+    br 
+    a(href="/register") Register 
+  if (user) 
+    p You are currently logged in as #{user.username} 
+    a(href="/Aeroplane") Take me to Aeroplane
+    br 
+    a(href="/logout") Logout 
