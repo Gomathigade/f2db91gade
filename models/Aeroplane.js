@@ -6,5 +6,4 @@ flight_captain: { type: String, required: true },
 is_operational: { type: Boolean, required: true }
 }) 
  
-module.exports = mongoose.model("Aeroplane", 
-AeroplaneSchema) 
+module.exports = mongoose.model("Aeroplane", AeroplaneSchema) 
